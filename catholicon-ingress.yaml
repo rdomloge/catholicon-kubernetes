@@ -19,4 +19,8 @@ spec:
             backend:
               serviceName: catholicon-ms-leagues-service
               servicePort: 82
+          - path: /unconfirmedResults
+            backend:
+              serviceName: catholicon-ms-result-service
+              servicePort: 83
 
