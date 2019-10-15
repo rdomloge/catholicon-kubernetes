@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catholicon-ms-leagues
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catholicon-ms-leagues
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: catholicon-ms-leagues
+        version: v1
+    spec:
+      containers:
+        - name: catholicon-ms-leagues
+          image: rdomloge/catholicon-ms-leagues-armv7
+          ports:
+            - containerPort: 8080

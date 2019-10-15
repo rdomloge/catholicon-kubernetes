@@ -7,7 +7,7 @@ spec:
     app: catholicon
   ports:
     - protocol: TCP
-      port: 8081
+      port: 80
       targetPort: 8080
   type: LoadBalancer
   externalIPs:
