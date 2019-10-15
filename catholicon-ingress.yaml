@@ -1,0 +1,13 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: catholicon-ingress
+spec:
+  rules:
+    - host: my-server.10.0.0.12.xip.io
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: catholicon-service
+              servicePort: 8081

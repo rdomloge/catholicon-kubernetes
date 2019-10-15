@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catholicon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catholicon
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: catholicon
+        version: v1
+    spec:
+      containers:
+        - name: catholicon
+          image: rdomloge/catholicon-armv7
+          ports:
+            - containerPort: 8080
