@@ -23,5 +23,5 @@ spec:
             httpGet:
               path: /static/html/partials/frontPage.html
               port: 8080
-            initialDelaySeconds: 30
+            initialDelaySeconds: 90
             periodSeconds: 10
