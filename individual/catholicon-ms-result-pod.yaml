@@ -19,3 +19,9 @@ spec:
           image: rdomloge/catholicon-ms-result-armv7
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /unconfirmedResults
+              port: 8080
+            initialDelaySeconds: 180
+            periodSeconds: 30

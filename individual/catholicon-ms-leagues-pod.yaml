@@ -19,3 +19,9 @@ spec:
           image: rdomloge/catholicon-ms-leagues-armv7
           ports:
             - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /leagues/search/findBySeason?season=0
+              port: 8080
+            initialDelaySeconds: 180
+            periodSeconds: 30
