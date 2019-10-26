@@ -23,8 +23,5 @@ spec:
             httpGet:
             path: /static/html/partials/frontPage.html
             port: 8080
-            httpHeaders:
-            - name: x-kubernetes-healthcheck
-              value: Awesome
             initialDelaySeconds: 30
             periodSeconds: 10
