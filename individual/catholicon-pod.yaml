@@ -21,7 +21,7 @@ spec:
             - containerPort: 8080
           livenessProbe:
             httpGet:
-            path: /static/html/partials/frontPage.html
-            port: 8080
+              path: /static/html/partials/frontPage.html
+              port: 8080
             initialDelaySeconds: 30
             periodSeconds: 10
