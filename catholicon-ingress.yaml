@@ -5,7 +5,7 @@ metadata:
 spec:
   rules:
     - host: my-server.10.0.0.12.xip.io
-      http:
+      http: &http_rules
         paths:
           - path: /
             backend:
@@ -23,4 +23,11 @@ spec:
             backend:
               serviceName: catholicon-ms-result-service
               servicePort: 83
-
+          - path: /matchcards
+            backend:
+              serviceName: catholicon-ms-matchcard-service
+              servicePort: 84
+    - host: rdomloge.entrydns.org
+      http: *http_rules
+    - host: catholicon.club
+      http: *http_rules
