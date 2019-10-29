@@ -17,6 +17,7 @@ spec:
       containers:
         - name: catholicon
           image: rdomloge/catholicon-armv7
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           livenessProbe:
