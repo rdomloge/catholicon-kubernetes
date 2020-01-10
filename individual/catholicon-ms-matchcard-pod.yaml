@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: catholicon-ms-matchcard
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: catholicon-ms-matchcard
