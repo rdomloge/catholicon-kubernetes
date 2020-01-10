@@ -27,6 +27,10 @@ spec:
             backend:
               serviceName: catholicon-ms-matchcard-service
               servicePort: 84
+          - path: /divisions
+            backend:
+              serviceName: catholicon-ms-matchcard-service
+              servicePort: 84
     - host: rdomloge.entrydns.org
       http: *http_rules
     - host: catholicon.club
