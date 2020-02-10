@@ -1,28 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: catholicon-ms-seasons
+  name: catholicon
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: catholicon-ms-seasons
+      app: catholicon
       version: v1
   template:
     metadata:
       labels:
-        app: catholicon-ms-seasons
+        app: catholicon
         version: v1
     spec:
       containers:
-        - name: catholicon-ms-seasons
-          image: rdomloge/catholicon-ms-seasons-armv7
-          imagePullPolicy: Always
+        - name: catholicon
+          image: rdomloge/catholicon-i386
           ports:
             - containerPort: 8080
           livenessProbe:
             httpGet:
-              path: /seasons
+              path: /static/html/partials/frontPage.html
               port: 8080
             initialDelaySeconds: 180
             periodSeconds: 30

@@ -17,7 +17,6 @@ spec:
       containers:
         - name: catholicon-ms-seasons
           image: rdomloge/catholicon-ms-seasons-armv7
-          imagePullPolicy: Always
           ports:
             - containerPort: 8080
           livenessProbe:
