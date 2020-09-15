@@ -20,9 +20,9 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
-          livenessProbe:
-            httpGet:
-              path: /matchcards/search/findByFixtureId?fixtureId=2168
-              port: 8080
-            initialDelaySeconds: 180
-            periodSeconds: 300
+          #livenessProbe:
+          #  httpGet:
+          #    path: /matchcards/search/findByFixtureId?fixtureId=2168
+          #    port: 8080
+          #  initialDelaySeconds: 180
+          #  periodSeconds: 300
