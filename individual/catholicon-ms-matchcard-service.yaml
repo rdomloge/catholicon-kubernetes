@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: catholicon-ms-matchcard-service
 spec:
+  type: LoadBalancer
   selector:
     app: catholicon-ms-matchcard
   ports:
