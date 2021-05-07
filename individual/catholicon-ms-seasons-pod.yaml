@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: catholicon-ms-seasons
+  namespace: catholicon
 spec:
   replicas: 1
   selector:
@@ -16,13 +17,37 @@ spec:
     spec:
       containers:
         - name: catholicon-ms-seasons
-          image: rdomloge/catholicon-ms-seasons-armv7
+          image: rdomloge/catholicon-ms-seasons-multiarch
           imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "650Mi"
+            limits:
+              cpu: "2000m"
+              memory: "750Mi"
           ports:
             - containerPort: 8080
           livenessProbe:
             httpGet:
-              path: /seasons
+              path: /actuator/info
               port: 8080
-            initialDelaySeconds: 180
+            initialDelaySeconds: 10
             periodSeconds: 30
+            timeoutSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+          startupProbe:
+            exec:
+              command:
+              - grep
+              - 'Started CatholiconMsSeasonsApplication'
+              - logs/ms-seasons.log
+            failureThreshold: 30
+            periodSeconds: 10
+            initialDelaySeconds: 10
