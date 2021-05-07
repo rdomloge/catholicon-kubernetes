@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: catholicon-ms-matchcard
+  namespace: catholicon
 spec:
   replicas: 1
   selector:
@@ -16,13 +17,42 @@ spec:
     spec:
       containers:
         - name: catholicon-ms-matchcard
-          image: rdomloge/catholicon-ms-matchcard-armv7
+          lifecycle: #this is here to allow the pod to drain before it is stopped, to avoid errors (spotted during load test)
+            preStop:
+              exec:
+                command:
+                - sleep
+                - "5"
+          image: rdomloge/catholicon-ms-matchcard-multiarch
           imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "1000m"
+              memory: "800Mi"
+            limits:
+              cpu: "2000m"
+              memory: "1000Mi"
           ports:
             - containerPort: 8080
-          #livenessProbe:
-          #  httpGet:
-          #    path: /matchcards/search/findByFixtureId?fixtureId=2168
-          #    port: 8080
-          #  initialDelaySeconds: 180
-          #  periodSeconds: 300
+          livenessProbe: #to know when to restart a container.
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 300
+          readinessProbe: #to know when a container is ready to start accepting traffic
+            httpGet:
+              path: /fixtures/search/countBySeason?season=0
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            timeoutSeconds: 3
+          startupProbe: #to know when a container application has started. If such a probe is configured, it disables liveness and readiness checks until it succeeds
+            exec:
+              command:
+              - grep
+              - 'Started CatholiconMsMatchcardApplication'
+              - logs/ms-matchcard.log
+            initialDelaySeconds: 30
+            periodSeconds: 10
+            failureThreshold: 30
