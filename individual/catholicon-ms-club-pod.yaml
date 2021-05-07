@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catholicon-ms-club
+  namespace: catholicon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catholicon-ms-club
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: catholicon-ms-club
+        version: v1
+    spec:
+      containers:
+        - name: catholicon-ms-club
+          lifecycle: #this is here to allow the pod to drain before it is stopped, to avoid errors (spotted during load test)
+            preStop:
+              exec:
+                command: 
+                - sleep
+                - "3"
+          image: rdomloge/catholicon-ms-club-multiarch
+          command: ["/catholicon-ms-club"]
+          args: ["-R:MaxHeapSize=50m", "-Xms64m", "-Xmx128m", "-XX:MaxDirectMemorySize=300m", "-XX:+PrintGC", "-XX:+PrintGCTimeStamps", "-XX:+PrintGCTimeStamps", "+XX:+PrintHeapShape", "-Dio.netty.allocator.numDirectArenas=0", "-Dio.netty.noPreferDirect=true"]
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "1000m"
+              memory: "196Mi"
+          ports:
+            - containerPort: 8080
+          livenessProbe: #to know when to restart a container.
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 300
+          readinessProbe: #to know when a container is ready to start accepting traffic
+            httpGet:
+              path: /clubs/search/countClubBySeason?season=0
+              port: 8080
+            initialDelaySeconds: 3
+            periodSeconds: 10
+            timeoutSeconds: 3
+          startupProbe: #to know when a container application has started. If such a probe is configured, it disables liveness and readiness checks until it succeeds
+            httpGet:
+              path: /health
+              port: 8080
+            initialDelaySeconds: 2 
+            periodSeconds: 2
+            failureThreshold: 30
