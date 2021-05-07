@@ -2,11 +2,12 @@ apiVersion: v1
 kind: Service
 metadata:
   name: catholicon-service
+  namespace: catholicon
 spec:
   selector:
     app: catholicon
   ports:
     - protocol: TCP
-      port: 80
+      port: 800
       targetPort: 8080
-  type: LoadBalancer
+  type: ClusterIP
