@@ -1,0 +1,44 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: catholicon-ingress
+  namespace: catholicon
+spec:
+  rules:
+    - host: my-server.10.0.0.12.xip.io
+      http: &http_rules
+        paths:
+          - path: /
+            backend:
+              serviceName: catholicon-service
+              servicePort: 800
+          - path: /seasons
+            backend:
+              serviceName: catholicon-ms-seasons-service
+              servicePort: 81
+          - path: /leagues
+            backend:
+              serviceName: catholicon-ms-leagues-service
+              servicePort: 82
+          - path: /unconfirmedResults
+            backend:
+              serviceName: catholicon-ms-matchcard-service
+              servicePort: 84
+          - path: /fixtures
+            backend:
+              serviceName: catholicon-ms-matchcard-service
+              servicePort: 84
+          - path: /divisions
+            backend:
+              serviceName: catholicon-ms-matchcard-service
+              servicePort: 84
+          - path: /clubs
+            backend:
+              serviceName: catholicon-ms-club-service
+              servicePort: 85
+    - host: rdomloge.entrydns.org
+      http: *http_rules
+    - host: catholicon.club
+      http: *http_rules
+    - host: localhost
+      http: *http_rules
