@@ -10,6 +10,12 @@ spec:
         name: catholicon-ms-club
     minReplicas: 1
     maxReplicas: 3
+    behavior:
+      scaleDown:
+        policies:
+        - type: Percent
+          value: 5
+          periodSeconds: 5
     metrics:
     - type: Resource
       resource:
