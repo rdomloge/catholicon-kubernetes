@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: catholicon
+  namespace: catholicon
 spec:
   replicas: 1
   selector:
@@ -16,13 +17,35 @@ spec:
     spec:
       containers:
         - name: catholicon
-          image: rdomloge/catholicon-armv7
+          image: rdomloge/catholicon-multiarch
           imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "1000m"
+              memory: "600Mi"
+            limits:
+              cpu: "1500m"
+              memory: "750Mi"
           ports:
             - containerPort: 8080
           livenessProbe:
             httpGet:
               path: /static/html/partials/frontPage.html
               port: 8080
-            initialDelaySeconds: 180
-            periodSeconds: 30
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /frontpage/upcoming
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          startupProbe:
+            exec:
+              command:
+                - grep
+                - 'Started ApplicationMain'
+                - logs/catholicon.log
+            initialDelaySeconds: 15
+            periodSeconds: 5
+            failureThreshold: 30
