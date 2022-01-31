@@ -16,13 +16,51 @@ spec:
         version: v1
     spec:
       containers:
+        - name: matchcard-warmup
+          image: rdomloge/mittens:arm64
+          resources:
+            limits:
+              memory: 30Mi
+              cpu: 50m
+            requests:
+              memory: 20Mi
+              cpu: 50m
+          readinessProbe:
+            exec:
+              command:
+              - "cat"
+              - "ready"
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          livenessProbe:
+            exec:
+              command:
+              - "cat"
+              - "alive"
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          args:
+            - "--concurrency=3"
+            - "--max-duration-seconds=120"
+            - "--target-readiness-http-path=/actuator/health"
+            - "--target-http-port=8080"
+            - "--http-requests=get:/fixtures/search/findResultByExternalFixtureId?externalFixtureId=359"
+            - "--http-requests=get:/fixtures/search/findByExternalFixtureId?externalFixtureId=353"
+            - "--http-requests=get:/divisions/60/report?season=0"
+            - "--http-requests=get:/divisions/1/report?season=2012"
+            - "--http-requests=get:/fixtures/search/findUnconfirmedMatchcardsBySeason?season=2012"
         - name: catholicon-ms-matchcard
           lifecycle: #this is here to allow the pod to drain before it is stopped, to avoid errors (spotted during load test)
+            postStart:
+              exec:
+                command:
+                - sleep
+                - "45"
             preStop:
               exec:
                 command:
                 - sleep
-                - "5"
+                - "10"
           image: rdomloge/catholicon-ms-matchcard-multiarch
           imagePullPolicy: Always
           resources:
@@ -56,3 +94,4 @@ spec:
             initialDelaySeconds: 15
             periodSeconds: 5
             failureThreshold: 30
+
