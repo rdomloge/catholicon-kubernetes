@@ -27,3 +27,5 @@ spec:
           env:
             - name: postConstructEnabled
               value: "true"
+            - name: DEBUG_LEVEL
+              value: "info"
