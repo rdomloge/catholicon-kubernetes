@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catholicon-monolith
+  namespace: catholicon-monolith
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catholicon-monolith
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: catholicon-monolith
+        version: v1
+    spec:
+      containers:
+        - name: catholicon
+          image: rdomloge/catholicon-monolith
+          imagePullPolicy: IfNotPresent
+          env:
+          - name: BASE
+            value: "http://bdbl.org.uk"
+          - name: BASE_URL
+            value: "http://bdbl.org.uk"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "500Mi"
+            limits:
+              cpu: "1500m"
+              memory: "750Mi"
+          ports:
+            - containerPort: 8080
+          livenessProbe:
+            httpGet:
+              path: /static/html/index.html
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 300
+          readinessProbe:
+            httpGet:
+              path: /frontpage/upcoming
+              port: 8080
+            initialDelaySeconds: 15
+            periodSeconds: 10
+          startupProbe:
+            httpGet:
+              path: /static/html/index.html
+              port: 8080
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            failureThreshold: 30
