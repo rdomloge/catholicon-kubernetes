@@ -15,10 +15,20 @@ spec:
         app: catholicon-monolith
         version: v1
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+              - key: kubernetes.io/hostname
+                operator: In
+                values:
+                - k8s-node-10
       containers:
         - name: catholicon
           image: rdomloge/catholicon-monolith
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           env:
           - name: BASE
             value: "http://bdbl.org.uk"
