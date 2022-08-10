@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: catholicon-ingress
@@ -9,37 +9,61 @@ spec:
       http: &http_rules
         paths:
           - path: /function
+            pathType: Prefix
             backend:
-              serviceName: function-bridge
-              servicePort: 8080
+              service:
+                name: function-bridge
+                port: 
+                  number: 8080
           - path: /
+            pathType: Prefix
             backend:
-              serviceName: catholicon-service
-              servicePort: 800
+              service:
+                name: catholicon-service
+                port: 
+                  number: 800
           - path: /seasons
+            pathType: Prefix
             backend:
-              serviceName: catholicon-ms-seasons-service
-              servicePort: 81
+              service:
+                name: catholicon-ms-seasons-service
+                port: 
+                  number: 81
           - path: /leagues
+            pathType: Prefix
             backend:
-              serviceName: catholicon-ms-leagues-service
-              servicePort: 82
+              service:
+                name: catholicon-ms-leagues-service
+                port: 
+                  number: 82
           - path: /unconfirmedResults
+            pathType: Prefix
             backend:
-              serviceName: catholicon-ms-matchcard-service
-              servicePort: 84
+              service:
+                name: catholicon-ms-matchcard-service
+                port: 
+                  number: 84
           - path: /fixtures
+            pathType: Prefix
             backend:
-              serviceName: catholicon-ms-matchcard-service
-              servicePort: 84
+              service:
+                name: catholicon-ms-matchcard-service
+                port: 
+                  number: 84
           - path: /divisions
+            pathType: Prefix
             backend:
-              serviceName: catholicon-ms-matchcard-service
-              servicePort: 84
+              service:
+                name: catholicon-ms-matchcard-service
+                port: 
+                  number: 84
           - path: /clubs
+            pathType: Prefix
             backend:
-              serviceName: catholicon-ms-club-service
-              servicePort: 85
+              service:
+                name: catholicon-ms-club-service
+                port: 
+                  number: 85
     - host: rdomloge.entrydns.org
       http: *http_rules
     - host: catholicon.club
