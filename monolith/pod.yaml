@@ -15,6 +15,11 @@ spec:
         app: catholicon-monolith
         version: v1
     spec:
+      tolerations:
+      - key: "cpu_architecture"
+        operator: "Equal"
+        value: "armv7"
+        effect: "NoSchedule" # tolerate a node that states no schedule unless pod has a toleration for armv7 architecture
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:

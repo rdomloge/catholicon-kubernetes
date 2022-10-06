@@ -20,10 +20,6 @@ spec:
             backend:
               serviceName: catholicon-ms-seasons-service
               servicePort: 81
-          - path: /leagues
-            backend:
-              serviceName: catholicon-ms-leagues-service
-              servicePort: 82
           - path: /unconfirmedResults
             backend:
               serviceName: catholicon-ms-matchcard-service
