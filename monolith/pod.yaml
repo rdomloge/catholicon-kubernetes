@@ -39,10 +39,12 @@ spec:
             value: "http://bdbl.org.uk"
           - name: BASE_URL
             value: "http://bdbl.org.uk"
+          - name: JAVA_OPTS
+            value: "-Xms500m -Xmx500m"
           resources:
             requests:
               cpu: "100m"
-              memory: "500Mi"
+              memory: "750Mi"
             limits:
               cpu: "1500m"
               memory: "750Mi"

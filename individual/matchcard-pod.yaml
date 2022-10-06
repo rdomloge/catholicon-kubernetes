@@ -72,6 +72,14 @@ spec:
               memory: "1000Mi"
           ports:
             - containerPort: 8080
+            - containerPort: 8000
+          env:
+            - name: JAVA_OPTS
+              value: -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000
+            - name: DEBUG_LEVEL
+              value: INFO
+            - name: MY_DEBUG_LEVEL
+              value: DEBUG
           livenessProbe: #to know when to restart a container.
             httpGet:
               path: /actuator/health
