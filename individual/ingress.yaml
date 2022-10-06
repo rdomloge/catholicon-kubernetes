@@ -28,22 +28,10 @@ spec:
           - path: /seasons
             pathType: Prefix
             backend:
-<<<<<<< HEAD
-              serviceName: catholicon-ms-seasons-service
-              servicePort: 81
-=======
               service:
                 name: catholicon-ms-seasons-service
                 port: 
                   number: 81
-          - path: /leagues
-            pathType: Prefix
-            backend:
-              service:
-                name: catholicon-ms-leagues-service
-                port: 
-                  number: 82
->>>>>>> e78c2ad7456820233cc0a21f863615451d7e9a9d
           - path: /unconfirmedResults
             pathType: Prefix
             backend:
