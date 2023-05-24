@@ -94,17 +94,10 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 3
           startupProbe: #to know when a container application has started. If such a probe is configured, it disables liveness and readiness checks until it succeeds
-            exec:
-              command:
-              - curl
-              - "https://kubernetes.default.svc/api/v1/namespaces/default/pods/$HOSTNAME/log"
-              - -k
-              - -H 
-              - "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)"
-              - |
-              - grep
-              - 'Started CatholiconMsMatchcardApplication'
-            initialDelaySeconds: 15
+            httpGet:
+              path: /actuator/health
+              port: 8080
+            initialDelaySeconds: 25
             periodSeconds: 5
             failureThreshold: 30
 
