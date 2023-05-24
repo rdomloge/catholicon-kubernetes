@@ -97,7 +97,7 @@ spec:
             exec:
               command:
               - curl
-              - "https://${KUBERNETES_SERVICE_HOST}/api/v1/namespaces/default/pods/$HOSTNAME/log"
+              - "https://kubernetes.default.svc/api/v1/namespaces/default/pods/$HOSTNAME/log"
               - -k
               - -H 
               - "Authorization: Bearer $(cat /var/run/secrets/kubernetes.io/serviceaccount/token)"
