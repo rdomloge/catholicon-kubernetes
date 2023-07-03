@@ -3,9 +3,6 @@ kind: Ingress
 metadata:
   name: catholicon-ingress
   namespace: catholicon
-  annotations: 
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer
 spec:
   rules:
     - host: my-server.10.0.0.12.xip.io
@@ -66,8 +63,3 @@ spec:
       http: *http_rules
     - host: localhost
       http: *http_rules
-  tls:
-    - hosts:
-      - catholicon.uk
-      - rdomloge.entrydns.org
-      secretName: letsencrypt-cluster-issuer-key
