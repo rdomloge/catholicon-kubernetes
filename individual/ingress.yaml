@@ -12,7 +12,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: function-bridge
+                name: catholicon-agg-clubfixture-service
                 port: 
                   number: 8080
           - path: /

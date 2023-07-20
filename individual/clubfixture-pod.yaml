@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catholicon-agg-clubfixture
+  namespace: catholicon
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catholicon-agg-clubfixture
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: catholicon-agg-clubfixture
+        version: v1
+    spec:
+      containers:
+        - name: catholicon-agg-clubfixture
+          image: rdomloge/catholicon-agg-clubfixture
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          ports:
+            - containerPort: 5000
