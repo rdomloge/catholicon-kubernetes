@@ -9,6 +9,6 @@ spec:
     app: catholicon-agg-clubfixture
   ports:
     - protocol: TCP
-      port: 85
+      port: 83
       targetPort: 5000
   type: ClusterIP
