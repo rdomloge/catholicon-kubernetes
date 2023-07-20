@@ -1,15 +1,15 @@
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
-    name: seasons
+    name: clubfixture
     namespace: catholicon
 spec:
     scaleTargetRef:
         apiVersion: apps/v1
         kind: Deployment
-        name: catholicon-ms-seasons
+        name: catholicon-agg-clubfixture
     minReplicas: 1
-    maxReplicas: 10
+    maxReplicas: 3
     behavior:
       scaleDown:
         policies:
