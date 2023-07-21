@@ -28,3 +28,10 @@ spec:
               memory: "512Mi"
           ports:
             - containerPort: 5000
+          startupProbe:
+            httpGet:
+              path: /clubfixture?fixtureId=2361
+              port: 5000
+            initialDelaySeconds: 2
+            periodSeconds: 2
+            timeoutSeconds: 2
