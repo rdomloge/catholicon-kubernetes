@@ -16,6 +16,36 @@ spec:
         version: v1
     spec:
       containers:
+        - name: warmup
+          image: rdomloge/mittens:arm64
+          resources:
+            limits:
+              memory: 30Mi
+              cpu: 150m
+            requests:
+              memory: 20Mi
+              cpu: 150m
+          readinessProbe:
+            exec:
+              command:
+              - "cat"
+              - "ready"
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          livenessProbe:
+            exec:
+              command:
+              - "cat"
+              - "alive"
+            initialDelaySeconds: 10
+            periodSeconds: 30
+          args:
+            - "--concurrency=3"
+            - "--max-duration-seconds=120"
+            - "--target-readiness-http-path=/actuator/health"
+            - "--target-http-port=8080"
+            - "--http-requests=get:/seasons?sort=seasonStartYear,desc"
+            - "--http-requests=get:/seasons?sort=seasonStartYear,asc"
         - name: catholicon-ms-seasons
           image: rdomloge/catholicon-ms-seasons-multiarch
           imagePullPolicy: Always
