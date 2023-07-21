@@ -13,9 +13,9 @@ spec:
     behavior:
       scaleDown:
         policies:
-          - type: Percent
-            value: 5
-            periodSeconds: 5
+        - type: Percent
+          value: 5
+          periodSeconds: 5
     metrics:
     - type: Resource
       resource:
