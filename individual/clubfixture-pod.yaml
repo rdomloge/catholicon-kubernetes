@@ -22,12 +22,15 @@ spec:
           resources:
             requests:
               cpu: "100m"
-              memory: "256Mi"
+              memory: "128Mi"
             limits:
               cpu: "750m"
-              memory: "512Mi"
+              memory: "256Mi"
           ports:
             - containerPort: 5000
+          env:
+            - name: LOGLEVEL
+              value: "DEBUG"
           startupProbe:
             httpGet:
               path: /clubfixture?fixtureId=2361
