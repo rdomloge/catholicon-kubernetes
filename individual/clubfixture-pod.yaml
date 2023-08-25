@@ -30,7 +30,11 @@ spec:
             - containerPort: 5000
           env:
             - name: LOGLEVEL
-              value: "DEBUG"
+              value: "INFO"
+            - name: FIXTURE_SVC
+              value: catholicon-ms-matchcard-service:84
+            - name: CLUB_SVC
+              value: catholicon-ms-club-service:85
           startupProbe:
             httpGet:
               path: /clubfixture?fixtureId=2361
