@@ -4,13 +4,13 @@ metadata:
   name: catholicon-ingress
   namespace: catholicon
   annotations:
-    nginx.ingress.kubernetes.io/cors-allow-headers: Content-Type
-    nginx.ingress.kubernetes.io/cors-allow-methods: GET, OPTIONS
-    nginx.ingress.kubernetes.io/cors-allow-origin: http://localhost:3000
-    nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
-    nginx.ingress.kubernetes.io/cors-max-age: "86400"
     nginx.ingress.kubernetes.io/enable-cors: "true"
-    
+    nginx.ingress.kubernetes.io/cors-allow-headers: Content-Type
+    nginx.ingress.kubernetes.io/cors-allow-methods: "PUT, GET, POST, OPTIONS"
+    nginx.ingress.kubernetes.io/cors-allow-credentials: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: http://localhost:3000
+    #nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
+    nginx.ingress.kubernetes.io/cors-max-age: "86400"
 spec:
   rules:
     - host: my-server.10.0.0.12.xip.io
