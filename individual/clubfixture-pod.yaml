@@ -22,12 +22,19 @@ spec:
           resources:
             requests:
               cpu: "100m"
-              memory: "256Mi"
+              memory: "128Mi"
             limits:
               cpu: "750m"
-              memory: "512Mi"
+              memory: "256Mi"
           ports:
             - containerPort: 5000
+          env:
+            - name: LOGLEVEL
+              value: "INFO"
+            - name: FIXTURE_SVC
+              value: catholicon-ms-matchcard-service:84
+            - name: CLUB_SVC
+              value: catholicon-ms-club-service:85
           startupProbe:
             httpGet:
               path: /clubfixture?fixtureId=2361

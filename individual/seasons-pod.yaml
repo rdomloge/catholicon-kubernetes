@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: warmup
-          image: rdomloge/mittens:arm64
+          image: expediagroup/mittens
           resources:
             limits:
               memory: 30Mi
@@ -30,22 +30,23 @@ spec:
               command:
               - "cat"
               - "ready"
-            initialDelaySeconds: 10
+            initialDelaySeconds: 60
             periodSeconds: 30
           livenessProbe:
             exec:
               command:
               - "cat"
               - "alive"
-            initialDelaySeconds: 10
+            initialDelaySeconds: 60
             periodSeconds: 30
           args:
             - "--concurrency=3"
-            - "--max-duration-seconds=120"
+            - "--max-warmup-seconds=60"
+            - "--max-duration-seconds=240"
+            - "--max-readiness-wait-seconds=180"
             - "--target-readiness-http-path=/actuator/health"
             - "--target-http-port=8080"
             - "--http-requests=get:/seasons?sort=seasonStartYear,desc"
-            - "--http-requests=get:/seasons?sort=seasonStartYear,asc"
         - name: catholicon-ms-seasons
           image: rdomloge/catholicon-ms-seasons-multiarch
           imagePullPolicy: Always
@@ -80,4 +81,4 @@ spec:
               - logs/ms-seasons.log
             failureThreshold: 30
             periodSeconds: 10
-            initialDelaySeconds: 10
+            initialDelaySeconds: 90
