@@ -10,7 +10,7 @@ metadata:
     nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
     nginx.ingress.kubernetes.io/cors-max-age: "86400"
     nginx.ingress.kubernetes.io/enable-cors: "true"
-    
+    traefik.ingress.kubernetes.io/custom-response-headers: "Access-Control-Allow-Origin:*||Access-Control-Allow-Methods:GET,POST,OPTIONS||Access-Control-Allow-Headers:DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range||Access-Control-Expose-Headers:Content-Length,Content-Range"    
 spec:
   rules:
     - host: my-server.10.0.0.12.xip.io
