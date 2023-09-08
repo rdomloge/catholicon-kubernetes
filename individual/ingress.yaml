@@ -11,6 +11,7 @@ metadata:
     nginx.ingress.kubernetes.io/cors-allow-origin: http://localhost:3000
     #nginx.ingress.kubernetes.io/cors-expose-headers: X-Custom-Header
     nginx.ingress.kubernetes.io/cors-max-age: "86400"
+
 spec:
   rules:
     - host: my-server.10.0.0.12.xip.io
