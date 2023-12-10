@@ -74,8 +74,6 @@ spec:
                   number: 85
     - host: rdomloge.entrydns.org
       http: *http_rules
-    - host: rdomloge.synology.me
-      http: *http_rules
     - host: catholicon.uk
       http: *http_rules
     - host: localhost
